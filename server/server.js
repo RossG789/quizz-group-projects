@@ -17,3 +17,8 @@ const PORT = "1212";
 app.listen(PORT, () => {
   console.log(`Currently listening on localhost:${PORT}`);
 });
+
+// set root route
+app.get("/", (req, res) => {
+  res.send(`root ROUTE ⊂(◉‿◉)つ`);
+});
