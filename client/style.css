@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h1 {
+  font-size: 4rem;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 500;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-weight: 600;
+  color: white;
+}
+
+p {
+  text-align: center;
+  font-size: 1rem;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-image: url("https://images.unsplash.com/photo-1618199361436-600f4743215a?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+}
+
+.flex-container {
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+}
+
+#border-container-message {
+  width: 90%;
+  margin: auto;
+  padding: 0.75rem;
+  background-color: lightgrey;
+  opacity: 1;
+  border-radius: 5%;
+  color: grey;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.btn {
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 5%;
+  font-weight: 400;
+  padding: 0.5rem;
+  color: black;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+#modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--grey);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+#modal-info {
+  width: 90%;
+  text-align: center;
+  border: blue 5px;
+  padding: 1rem;
+  color: black;
+  border-radius: 2px;
+}

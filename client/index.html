@@ -1,12 +1,48 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <script type="module" src="/main.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz Group Project</title>
   </head>
-  <body>
+  <body class="flex-conatiner">
+    <a href="index.html">
+      <h1>The CodeFellas Quiz &#128526;</h1>
+    </a>
+
+    <!--Welcome message, outer container-->
+    <div id="border-container-message">
+      <h2>Are you ready to take on the Mafia of Quizzes?</h2>
+
+      <p>
+        Navigate your way through the quiz by clicking the button belows. You
+        can return to this home page by clicking the title at the top of the
+        page.
+      </p>
+
+      <div class="button-group">
+        <button id="open-modal" class="btn">Instructions</button>
+        <a href="quiz.html" class="btn">Let's Quiz</a>
+        <a href="results.html" id="results" class="btn">Results Page</a>
+      </div>
+    </div>
+
+    <!--modal container for when they click on instructions-->
+    <div id="modal-container">
+      <div id="modal-info">
+        <h3>Instructions to Play</h3>
+
+        <p>Press Let's Quiz</p>
+        <p>Choose the difficulty of level</p>
+        <p>Click on answer...make sure to click on the correct one!!</p>
+        <p>View your score. Disappointed? Play again!</p>
+
+        <button id="close-modal" class="button">Close</button>
+      </div>
+    </div>
     <div id="app"></div>
     <script type="module" src="/main.js"></script>
   </body>
