@@ -9,3 +9,11 @@ dotenv.config;
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+// Local Port
+
+const PORT = "1212";
+
+app.listen(PORT, () => {
+  console.log(`Currently listening on localhost:${PORT}`);
+});
