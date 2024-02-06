@@ -25,7 +25,6 @@ app.get("/", (req, res) => {
   res.send(`root ROUTE ⊂(◉‿◉)つ`);
 });
 
-
 // Fetch request to QUIZ API
 
 const quizURL =
@@ -43,6 +42,7 @@ async function fetchQuiz() {
       answers: [...quizItem.incorrect_answers, quizItem.correct_answer],
       correctAnswer: quizItem.correct_answer,
     };
+    console.log(quizObject);
   });
 }
 
@@ -66,4 +66,3 @@ app.post("/leaderboard", (req, res) => {
     res.status(500).json({ error: err });
   }
 });
-
