@@ -25,7 +25,6 @@ app.get("/", (req, res) => {
   res.send(`root ROUTE ⊂(◉‿◉)つ`);
 });
 
-
 // Fetch request to QUIZ API
 
 const quizURL =
@@ -36,17 +35,12 @@ async function fetchQuiz() {
   let quiz = await response.json();
 
   // Creating objects from the Quiz API's response
-
-  let quizArray = quiz.results.map((quizItem) => {
-    let quizObject = {
-      question: quizItem.question,
-      answers: [...quizItem.incorrect_answers, quizItem.correct_answer],
-      correctAnswer: quizItem.correct_answer,
-    };
-  });
+  let quizArray = quiz.results.map((quizItem) => ({
+    question: quizItem.question,
+    answers: [...quizItem.incorrect_answers, quizItem.correct_answer],
+    correctAnswer: quizItem.correct_answer,
+  }));
 }
-
-fetchQuiz();
 
 //post route
 app.post("/leaderboard", (req, res) => {
@@ -67,3 +61,19 @@ app.post("/leaderboard", (req, res) => {
   }
 });
 
+app.get("/quiz", async (req, res) => {
+  try {
+    let response = await fetch(`${quizURL}`);
+    let quiz = await response.json();
+
+    // Creating objects from the Quiz API's response
+    let quizArray = quiz.results.map((quizItem) => ({
+      question: quizItem.question,
+      answers: [...quizItem.incorrect_answers, quizItem.correct_answer],
+      correctAnswer: quizItem.correct_answer,
+    }));
+    res.status(200).json(quizArray);
+  } catch (err) {
+    res.send(err);
+  }
+});
