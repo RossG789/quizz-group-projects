@@ -49,6 +49,7 @@ app.post("/leaderboard", (req, res) => {
   }
 });
 
+
 app.get("/quiz", async (req, res) => {
   try {
     let response = await fetch(`${quizURL}`);
@@ -65,3 +66,4 @@ app.get("/quiz", async (req, res) => {
     res.send(err);
   }
 });
+
