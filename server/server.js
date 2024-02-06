@@ -30,24 +30,6 @@ app.get("/", (req, res) => {
 const quizURL =
   "https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple";
 
-async function fetchQuiz() {
-  let response = await fetch(`${quizURL}`);
-  let quiz = await response.json();
-
-  // Creating objects from the Quiz API's response
-
-  let quizArray = quiz.results.map((quizItem) => {
-    let quizObject = {
-      question: quizItem.question,
-      answers: [...quizItem.incorrect_answers, quizItem.correct_answer],
-      correctAnswer: quizItem.correct_answer,
-    };
-    console.log(quizObject);
-  });
-}
-
-fetchQuiz();
-
 //post route
 app.post("/leaderboard", (req, res) => {
   // try catch
@@ -66,3 +48,22 @@ app.post("/leaderboard", (req, res) => {
     res.status(500).json({ error: err });
   }
 });
+
+
+app.get("/quiz", async (req, res) => {
+  try {
+    let response = await fetch(`${quizURL}`);
+    let quiz = await response.json();
+
+    // Creating objects from the Quiz API's response
+    let quizArray = quiz.results.map((quizItem) => ({
+      question: quizItem.question,
+      answers: [...quizItem.incorrect_answers, quizItem.correct_answer],
+      correctAnswer: quizItem.correct_answer,
+    }));
+    res.status(200).json(quizArray);
+  } catch (err) {
+    res.send(err);
+  }
+});
+
