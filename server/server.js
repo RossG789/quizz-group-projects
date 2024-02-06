@@ -25,6 +25,29 @@ app.get("/", (req, res) => {
   res.send(`root ROUTE ⊂(◉‿◉)つ`);
 });
 
+
+// Fetch request to QUIZ API
+
+const quizURL =
+  "https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple";
+
+async function fetchQuiz() {
+  let response = await fetch(`${quizURL}`);
+  let quiz = await response.json();
+
+  // Creating objects from the Quiz API's response
+
+  let quizArray = quiz.results.map((quizItem) => {
+    let quizObject = {
+      question: quizItem.question,
+      answers: [...quizItem.incorrect_answers, quizItem.correct_answer],
+      correctAnswer: quizItem.correct_answer,
+    };
+  });
+}
+
+fetchQuiz();
+
 //post route
 app.post("/leaderboard", (req, res) => {
   // try catch
@@ -43,3 +66,4 @@ app.post("/leaderboard", (req, res) => {
     res.status(500).json({ error: err });
   }
 });
+
