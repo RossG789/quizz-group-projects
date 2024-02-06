@@ -9,6 +9,8 @@ dotenv.config;
 const app = express();
 app.use(express.json());
 app.use(cors());
+//database variable
+const db = new Database("database.db");
 
 // Local Port
 
@@ -22,6 +24,7 @@ app.listen(PORT, () => {
 app.get("/", (req, res) => {
   res.send(`root ROUTE ⊂(◉‿◉)つ`);
 });
+
 
 // Fetch request to QUIZ API
 
@@ -44,3 +47,23 @@ async function fetchQuiz() {
 }
 
 fetchQuiz();
+
+//post route
+app.post("/leaderboard", (req, res) => {
+  // try catch
+  // create variables for req
+  try {
+    const userName = req.body.username;
+    const score = req.body.score;
+    // run sql statement
+    const newEntry = db
+      .prepare(`INSERT INTO leaderboard (username , score) VALUES ( ? ,?)`)
+      .run(userName, score);
+    // respond with status
+    res.status(200).json(newEntry);
+  } catch (err) {
+    // catch error
+    res.status(500).json({ error: err });
+  }
+});
+
