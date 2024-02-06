@@ -30,18 +30,6 @@ app.get("/", (req, res) => {
 const quizURL =
   "https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple";
 
-async function fetchQuiz() {
-  let response = await fetch(`${quizURL}`);
-  let quiz = await response.json();
-
-  // Creating objects from the Quiz API's response
-  let quizArray = quiz.results.map((quizItem) => ({
-    question: quizItem.question,
-    answers: [...quizItem.incorrect_answers, quizItem.correct_answer],
-    correctAnswer: quizItem.correct_answer,
-  }));
-}
-
 //post route
 app.post("/leaderboard", (req, res) => {
   // try catch
