@@ -73,7 +73,7 @@ body {
   margin: 0.5rem;
   cursor: pointer;
 }
-#modal-container {
+.modal-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -87,11 +87,15 @@ body {
   pointer-events: none;
   transition: opacity 0.5s ease;
 }
-#modal-info {
-  width: 90%;
+
+.modal-info {
+  width: 80%;
+  height: 100%;
+  padding: 2rem;
   text-align: center;
-  border: blue 5px;
-  padding: 1rem;
-  color: black;
-  border-radius: 2px;
+}
+
+.modal-container.show {
+  opacity: 1;
+  pointer-events: auto;
 }
