@@ -14,6 +14,7 @@ async function fetchQuiz() {
   return result;
 }
 
+
 startQuiz.addEventListener("click", init);
 
 async function init() {
@@ -47,3 +48,16 @@ function createMain(quizItem) {
 
   // quizItemDiv.appendChild(quizQuestion);
 }
+
+const openModal = document.getElementById("open");
+const closeModal = document.getElementById("close");
+const modalContainer = document.getElementById("modal_container");
+
+openModal.addEventListener("click", () => {
+  modalContainer.classList.add("show");
+});
+
+closeModal.addEventListener("click", () => {
+  modalContainer.classList.remove("show");
+});
+
