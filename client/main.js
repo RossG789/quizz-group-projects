@@ -1,5 +1,5 @@
 //defult global url
-baseUrl = "http://localhost:1212";
+let baseUrl = "http://localhost:1212";
 //fetch request to route on server.js
 async function fetchQuiz() {
   const quiz = await fetch(`${baseUrl}/quiz`);
