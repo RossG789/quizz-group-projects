@@ -65,15 +65,3 @@ app.get("/quiz", async (req, res) => {
     res.send(err);
   }
 });
-
-//set up result route
-app.get("/leaderboard", async (req, res) => {
-  try {
-    let score = db.prepare(`SELECT * FROM leaderboard`).all();
-    res.status(200).json(score);
-    return score;
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
-
