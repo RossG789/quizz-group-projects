@@ -69,6 +69,5 @@ function createMain(quizItem) {
       createMain(resultArray[currentIndex]);
     });
   });
-
   // quizItemDiv.appendChild(quizQuestion);
 }
