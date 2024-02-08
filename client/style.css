@@ -1,14 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 h1 {
+  margin: 50px;
   font-size: 4rem;
   justify-content: center;
   text-align: center;
   color: white;
   font-weight: 600;
+}
+
+.intro {
+  font-size: 1.2rem;
+  margin: 35px;
+  color: #fbae3ccc;
 }
 
 h2 {
@@ -28,6 +38,7 @@ p {
 }
 
 a {
+  color: white;
   text-decoration: none;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
@@ -35,20 +46,26 @@ a {
 }
 
 body {
-  background-image: url("https://images.unsplash.com/photo-1618199361436-600f4743215a?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-image: url("./public/blob-scene-haikei.svg");
+  height: 100vh;
+  background-position: center center;
+  background-repeat: no-repeat;
   background-size: cover;
 }
 
 .flex-container {
+  text-align: center;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: 100vh;
+  /* height: 100%; */
   justify-content: center;
   align-content: center;
+  align-items: center;
 }
 
-#border-container-message {
+.border-container-message {
   background-color: rgba(0, 0, 0, 0.4);
   opacity: 0.9;
   width: 80%;
@@ -56,18 +73,22 @@ body {
   padding: 1rem;
   color: var(--off-white);
   border-radius: 1.5rem;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .button-group {
   display: flex;
   justify-content: space-around;
   flex-direction: column;
+  align-items: center;
 }
 
 .btn {
   font-size: 1rem;
   text-align: center;
-  border-radius: 10%;
+  border-radius: 8px;
   font-weight: 400;
   padding: 0.5rem;
   color: black;
@@ -110,8 +131,48 @@ h3 {
   color: white;
   font-size: 40px;
 }
+
+/* Quiz Styling */
+
+button {
+  max-width: 256px;
+  min-width: 128px;
+  width: 100%;
+  margin: 8px;
+  border-radius: 8px;
+  font-size: 1.4rem;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.name-label {
+  color: white;
+  font-size: 2.5rem;
+}
+
+#fullname {
+  width: 100%;
+}
+
+#startButton {
+  width: 35%;
+}
+
+.hidden {
+  display: none;
+}
+
 #resetButton {
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 40px;
+}
+
+/* Results page */
+
+h4 {
+  color: white;
+  font-size: 30px;
 }

@@ -5,18 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <script src="quiz.js" defer></script>
-    <title>The CodeFellas Quiz Game</title>
+    <title>Quiz</title>
   </head>
-  <body class="flex-conatiner">
+  <body>
     <a href="index.html">
       <h1>The CodeFellas Quiz &#128526;</h1>
     </a>
-
-    <button id="startButton">Start Quiz</button>
-
-    <div id="quiz-item-div"></div>
-    <button id="resetButton" class="resetBtn">
-      <a href="quiz.html" class>New Quiz</a>
-    </button>
+    <div class="flex-container border-container-message" id="startBar">
+      <label class="name-label" for="fullname"
+        >Please Enter Your Name to Start</label
+      >
+      <div>
+        <input id="fullname" type="text" name="name" class="input" />
+      </div>
+      <div>
+        <button id="startButton">Start Quiz</button>
+      </div>
+    </div>
+    <div
+      id="quiz-item-div"
+      class="flex-container border-container-message hidden"
+    ></div>
   </body>
 </html>
