@@ -47,10 +47,13 @@ a {
 
 body {
   background-image: url("blob-scene-haikei.svg");
-  height: 100vh;
+  height: 100%;
+  overflow: auto;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
+  padding-bottom: 1rem;
 }
 
 .flex-container {
