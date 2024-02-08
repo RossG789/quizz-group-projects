@@ -35,12 +35,12 @@ app.post("/leaderboard", (req, res) => {
   // try catch
   // create variables for req
   try {
-    const userName = req.body.username;
+    // const userName = req.body.username;
     const score = req.body.score;
     // run sql statement
     const newEntry = db
-      .prepare(`INSERT INTO leaderboard (username , score) VALUES ( ? ,?)`)
-      .run(userName, score);
+      .prepare(`INSERT INTO leaderboard (score) VALUES ( ? )`)
+      .run(score);
     // respond with status
     res.status(200).json(newEntry);
   } catch (err) {

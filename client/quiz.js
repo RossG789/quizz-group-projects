@@ -58,9 +58,18 @@ function createMain(quizItem) {
 
       if (currentIndex > resultArray.length - 1) {
         quizItemDiv.innerHTML = "";
-        let submitQuiz = document.createElement("p");
+        let submitQuiz = document.createElement("button");
         submitQuiz.innerHTML = "See Your results";
         submitQuiz.addEventListener("click", () => console.log("submitted"));
+        // post request score -> database
+        const finalScore = fetch(`${baseUrl}/leaderboard`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ score: score }),
+        });
+
         quizItemDiv.appendChild(submitQuiz);
         return;
       }
