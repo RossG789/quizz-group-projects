@@ -4,8 +4,10 @@ console.log(startQuiz);
 const quizQuestDiv = document.getElementById("quiz-quest");
 const quizAnswerDiv = document.getElementById("quiz-answers");
 const quizItemDiv = document.getElementById("quiz-item-div");
-let result;
+let resultArray;
 let currentIndex = 0;
+
+let score = 0;
 //defult global url
 let baseUrl = "http://localhost:1212";
 //fetch request to route on server.js
@@ -19,7 +21,9 @@ async function fetchQuiz() {
 startQuiz.addEventListener("click", init);
 
 async function init() {
+  //   alert("hello world");
   resultArray = await fetchQuiz();
+  console.log(resultArray);
   createMain(resultArray[currentIndex]);
 }
 
@@ -27,12 +31,15 @@ async function init() {
 
 function createMain(quizItem) {
   // console.log(quizItem);
-  let quizItemContainer = document.createElement("div");
+  //   let quizItemContainer = document.createElement("div");
+  quizItemDiv.innerHTML = "";
   let quizQuestion = document.createElement("p");
   quizQuestion.innerHTML = quizItem.question;
 
-  quizItemContainer.appendChild(quizQuestion);
+  //   quizItemContainer.appendChild(quizQuestion);
   quizItemDiv.appendChild(quizQuestion);
+  const rightAnswer = quizItem.correctAnswer;
+
   quizItem["answers"].forEach((answer) => {
     // console.log(answer);
 
@@ -41,8 +48,15 @@ function createMain(quizItem) {
     quizItemDiv.appendChild(quizAnswerTag);
 
     quizAnswerTag.addEventListener("click", () => {
+      console.log(answer);
+      console.log(rightAnswer);
+      if (answer === rightAnswer) {
+        score++;
+      }
+      console.log(score);
       // check if correct function
       currentIndex++;
+      console.log(`current index is ${currentIndex}`);
       createMain(resultArray[currentIndex]);
     });
   });
