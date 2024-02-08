@@ -29,7 +29,7 @@ async function init() {
 
 // intial call
 
-function createMain(quizItem) {
+async function createMain(quizItem) {
   // console.log(quizItem);
   //   let quizItemContainer = document.createElement("div");
   quizItemDiv.innerHTML = "";
@@ -47,7 +47,7 @@ function createMain(quizItem) {
     quizAnswerTag.innerHTML = answer;
     quizItemDiv.appendChild(quizAnswerTag);
 
-    quizAnswerTag.addEventListener("click", () => {
+    quizAnswerTag.addEventListener("click", async () => {
       currentIndex++;
       console.log(answer);
       console.log(rightAnswer);
@@ -61,8 +61,7 @@ function createMain(quizItem) {
         let submitQuiz = document.createElement("button");
         submitQuiz.innerHTML = "See Your results";
         submitQuiz.addEventListener("click", () => console.log("submitted"));
-        // post request score -> database
-        const finalScore = fetch(`${baseUrl}/leaderboard`, {
+        const response = await fetch(`${baseUrl}/leaderboard`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -70,7 +69,12 @@ function createMain(quizItem) {
           body: JSON.stringify({ score: score }),
         });
 
-        quizItemDiv.appendChild(submitQuiz);
+        console.log(response);
+
+        if (response.ok) {
+          showScoreboard();
+        }
+        // post request score -> database
         return;
       }
 
@@ -79,4 +83,20 @@ function createMain(quizItem) {
     });
   });
   // quizItemDiv.appendChild(quizQuestion);
+}
+
+async function showScoreboard() {
+  const scoreboard = await fetch(`${baseUrl}/leaderboard`);
+  let scores = await scoreboard.json();
+
+  scores.forEach((score) => {
+    let scoreNum = document.createElement("p");
+    scoreNum.innerText = score.score;
+
+    quizItemDiv.appendChild(scoreNum);
+  });
+
+  console.log(scores);
+
+  // quizItemDiv.appendChild(submitQuiz);
 }

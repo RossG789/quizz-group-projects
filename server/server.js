@@ -49,12 +49,28 @@ app.post("/leaderboard", (req, res) => {
   }
 });
 
+app.get("/leaderboard", (req, res) => {
+  try {
+    const scores = db.prepare(`SELECT * from leaderboard`).all();
+    // scores.sort(compare(a.score, b.score));
+    scores.sort(compare).reverse();
+
+    function compare(a, b) {
+      return a.score - b.score;
+    }
+
+    res.status(200).json(scores);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
 app.get("/quiz", async (req, res) => {
   try {
     let response = await fetch(`${quizURL}`);
     let quiz = await response.json();
 
-    // Creating objects from the Quiz API's response
+    // creating objects from the Quiz API's response
     let quizArray = quiz.results.map((quizItem) => ({
       question: quizItem.question,
       answers: [...quizItem.incorrect_answers, quizItem.correct_answer],
