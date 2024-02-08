@@ -1,4 +1,4 @@
-let baseUrl = "http://localhost:1212";
+let baseUrl = "https://quiz-backend-1k5q.onrender.com";
 
 const leaderBoard = document.getElementById("leader-board");
 

@@ -10,7 +10,7 @@ let resultArray;
 let currentIndex = 0;
 let score = 0;
 //defult global url
-let baseUrl = "http://localhost:1212";
+let baseUrl = "https://quiz-backend-1k5q.onrender.com";
 //fetch request to route on server.js
 async function fetchQuiz() {
   const quiz = await fetch(`${baseUrl}/quiz`);
