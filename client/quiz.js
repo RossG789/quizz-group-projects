@@ -48,14 +48,23 @@ function createMain(quizItem) {
     quizItemDiv.appendChild(quizAnswerTag);
 
     quizAnswerTag.addEventListener("click", () => {
+      currentIndex++;
       console.log(answer);
       console.log(rightAnswer);
       if (answer === rightAnswer) {
         score++;
       }
       console.log(score);
-      // check if correct function
-      currentIndex++;
+
+      if (currentIndex > resultArray.length - 1) {
+        quizItemDiv.innerHTML = "";
+        let submitQuiz = document.createElement("p");
+        submitQuiz.innerHTML = "See Your results";
+        submitQuiz.addEventListener("click", () => console.log("submitted"));
+        quizItemDiv.appendChild(submitQuiz);
+        return;
+      }
+
       console.log(`current index is ${currentIndex}`);
       createMain(resultArray[currentIndex]);
     });
