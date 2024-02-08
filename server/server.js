@@ -18,6 +18,7 @@ const PORT = "1212";
 
 app.listen(PORT, () => {
   console.log(`Currently listening on localhost:${PORT}`);
+  console.log(process.env.QUIZ_URL);
 });
 
 // set root route
