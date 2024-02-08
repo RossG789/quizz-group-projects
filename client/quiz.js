@@ -1,12 +1,13 @@
 const startQuiz = document.getElementById("startButton");
 
-console.log(startQuiz);
-const quizQuestDiv = document.getElementById("quiz-quest");
-const quizAnswerDiv = document.getElementById("quiz-answers");
+const startDiv = document.getElementById("startBar");
+
 const quizItemDiv = document.getElementById("quiz-item-div");
+
+let userName;
+
 let resultArray;
 let currentIndex = 0;
-
 let score = 0;
 //defult global url
 let baseUrl = "http://localhost:1212";
@@ -21,82 +22,86 @@ async function fetchQuiz() {
 startQuiz.addEventListener("click", init);
 
 async function init() {
-  //   alert("hello world");
-  resultArray = await fetchQuiz();
-  console.log(resultArray);
-  createMain(resultArray[currentIndex]);
+  userName = document.getElementById("fullname").value.trim();
+  if (userName) {
+    quizItemDiv.classList.remove("hidden");
+    startDiv.classList.add("hidden");
+    resultArray = await fetchQuiz();
+    // console.log(resultArray);
+    createMain(resultArray[currentIndex]);
+  } else {
+    alert("Please enter a name to begin");
+  }
+  // console.log(userName);
 }
 
 // intial call
 
 async function createMain(quizItem) {
-  // console.log(quizItem);
-  //   let quizItemContainer = document.createElement("div");
+  // This was lifted to randomise as best as possible
+  const shuffledAns = quizItem.answers
+    .map((answer) => ({ answer, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ answer }) => answer);
+
   quizItemDiv.innerHTML = "";
-  let quizQuestion = document.createElement("p");
+  let quizQuestion = document.createElement("h3");
   quizQuestion.innerHTML = quizItem.question;
 
   //   quizItemContainer.appendChild(quizQuestion);
   quizItemDiv.appendChild(quizQuestion);
   const rightAnswer = quizItem.correctAnswer;
 
-  quizItem["answers"].forEach((answer) => {
-    // console.log(answer);
-
-    let quizAnswerTag = document.createElement("p");
+  shuffledAns.forEach((answer) => {
+    let quizAnswerTag = document.createElement("button");
     quizAnswerTag.innerHTML = answer;
     quizItemDiv.appendChild(quizAnswerTag);
 
     quizAnswerTag.addEventListener("click", async () => {
       currentIndex++;
-      console.log(answer);
-      console.log(rightAnswer);
+      // console.log(answer);
+      // console.log(rightAnswer);
       if (answer === rightAnswer) {
         score++;
       }
-      console.log(score);
+      // console.log(score);
 
       if (currentIndex > resultArray.length - 1) {
         quizItemDiv.innerHTML = "";
-        let submitQuiz = document.createElement("button");
-        submitQuiz.innerHTML = "See Your results";
-        submitQuiz.addEventListener("click", () => console.log("submitted"));
+        showScore();
+
         const response = await fetch(`${baseUrl}/leaderboard`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ score: score }),
+          body: JSON.stringify({
+            score: score,
+            name: userName,
+          }),
         });
 
-        console.log(response);
+        // console.log(response);
 
-        if (response.ok) {
-          showScoreboard();
+        if (!response.ok) {
+          // showScoreboard();
+          alert("Something went wrong");
         }
-        // post request score -> database
         return;
       }
 
-      console.log(`current index is ${currentIndex}`);
+      // console.log(`current index is ${currentIndex}`);
       createMain(resultArray[currentIndex]);
     });
   });
-  // quizItemDiv.appendChild(quizQuestion);
 }
 
-async function showScoreboard() {
-  const scoreboard = await fetch(`${baseUrl}/leaderboard`);
-  let scores = await scoreboard.json();
-
-  scores.forEach((score) => {
-    let scoreNum = document.createElement("p");
-    scoreNum.innerText = score.score;
-
-    quizItemDiv.appendChild(scoreNum);
-  });
-
-  console.log(scores);
-
-  // quizItemDiv.appendChild(submitQuiz);
+function showScore() {
+  let finalScore = document.createElement("h2");
+  finalScore.innerHTML = `Congratulations ${userName} you got ${score} out of 10!`;
+  let leaderBoardBtn = document.createElement("a");
+  leaderBoardBtn.innerHTML = "See Leaderboard?";
+  leaderBoardBtn.href = "results.html";
+  quizItemDiv.appendChild(finalScore);
+  quizItemDiv.appendChild(leaderBoardBtn);
 }

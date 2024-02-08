@@ -4,7 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import Database from "better-sqlite3";
 //  config
-dotenv.config;
+dotenv.config();
 
 const app = express();
 app.use(express.json());
@@ -18,6 +18,7 @@ const PORT = "1212";
 
 app.listen(PORT, () => {
   console.log(`Currently listening on localhost:${PORT}`);
+  console.log(process.env.QUIZ_URL);
 });
 
 // set root route
@@ -30,34 +31,26 @@ app.get("/", (req, res) => {
 const quizURL =
   "https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple";
 
-//post route
 app.post("/leaderboard", (req, res) => {
-  // try catch
-  // create variables for req
   try {
-    // const userName = req.body.username;
+    const userName = req.body.name;
     const score = req.body.score;
-    // run sql statement
+
     const newEntry = db
-      .prepare(`INSERT INTO leaderboard (score) VALUES ( ? )`)
-      .run(score);
-    // respond with status
-    res.status(200).json(newEntry);
+      .prepare(`INSERT INTO leaderboard (username, score) VALUES ( ?, ? )`)
+      .run(userName, score);
+
+    res.status(201).send();
   } catch (err) {
-    // catch error
     res.status(500).json({ error: err });
   }
 });
 
 app.get("/leaderboard", (req, res) => {
   try {
-    const scores = db.prepare(`SELECT * from leaderboard`).all();
-    // scores.sort(compare(a.score, b.score));
-    scores.sort(compare).reverse();
-
-    function compare(a, b) {
-      return a.score - b.score;
-    }
+    const scores = db
+      .prepare(`SELECT * from leaderboard ORDER BY score DESC`)
+      .all();
 
     res.status(200).json(scores);
   } catch (err) {
