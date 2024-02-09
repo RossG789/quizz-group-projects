@@ -1,4 +1,4 @@
-**The Goodfellas Quiz App**
+# The Codefellas App
 
 ## Overview
 The Goodfellas quiz app is a fullstack app built with Html, Javascript, sql, express, cors, and Css. It is mobile responsive and dynamically stores and renders the users final result of their quiz attempt. 
